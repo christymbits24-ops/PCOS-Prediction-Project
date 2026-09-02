@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>PMOS Prediction Result</title>
+
+    <style>
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f3ff;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            margin: 100px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #6a4bbc;
+        }
+
+        #result {
+            margin: 30px 0;
+            padding: 25px;
+            border-radius: 12px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .positive {
+            background: #ffe5e5;
+            color: #c62828;
+        }
+
+        .negative {
+            background: #e5f7e5;
+            color: #2e7d32;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: #6a4bbc;
+            color: white;
+            font-size: 17px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #54399c;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+    <h1>PMOS Prediction Result</h1>
+
+    <div id="result"></div>
+
+    <button onclick="goToRecommendations()">
+        View Recommendations
+    </button>
+
+</div>
+
+
+<script>
+
+const prediction =
+    Number(localStorage.getItem("pcosPrediction"));
+
+const probability =
+    localStorage.getItem("pcosProbability");
+
+const resultText =
+    localStorage.getItem("pcosResult");
+
+
+const resultDiv =
+    document.getElementById("result");
+
+
+resultDiv.innerHTML =
+    resultText +
+    "<br><br>" +
+    "Probability: " +
+    probability +
+    "%";
+
+
+if (prediction === 1) {
+
+    resultDiv.className = "positive";
+
+} else {
+
+    resultDiv.className = "negative";
+
+}
+
+
+function goToRecommendations() {
+
+    window.location.href =
+        "/recommendation/";
+
+}
+
+</script>
+
+</body>
+
+</html>

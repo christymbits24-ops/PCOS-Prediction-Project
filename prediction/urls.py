@@ -1,3 +1,4 @@
+from .models import Prediction
 from django.urls import path
 from .views import home, predict, result_page, recommendation_page
 

@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>PMOS Recommendations</title>
+
+<style>
+
+    /* ================= GENERAL ================= */
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background: #fff8fc;
+        color: #444;
+    }
+
+
+    /* ================= PAGE HEADER ================= */
+
+    .page-header {
+        background: linear-gradient(135deg, #fcecf7, #f4efff);
+        text-align: center;
+        padding: 65px 20px;
+    }
+
+    .page-header h1 {
+        font-size: 42px;
+        color: #713b70;
+        margin-bottom: 15px;
+    }
+
+    .page-header p {
+        font-size: 18px;
+        color: #666;
+        max-width: 700px;
+        margin: auto;
+        line-height: 1.7;
+    }
+
+
+    /* ================= MAIN CONTAINER ================= */
+
+    .container {
+        width: 85%;
+        max-width: 1050px;
+        margin: 60px auto;
+    }
+
+
+    /* ================= STATUS ================= */
+
+    .status {
+        text-align: center;
+        padding: 20px;
+        border-radius: 20px;
+        margin-bottom: 25px;
+        font-size: 21px;
+        font-weight: bold;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+    }
+
+
+    .high-risk {
+        background: linear-gradient(135deg, #ffe5e5, #fcecf7);
+        color: #c62828;
+    }
+
+
+    .low-risk {
+        background: linear-gradient(135deg, #e6f7e6, #f4fff4);
+        color: #2e7d32;
+    }
+
+
+    /* ================= CARDS ================= */
+
+    .card {
+        background: white;
+        padding: 35px;
+        margin-bottom: 25px;
+
+        border-radius: 20px;
+
+        box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+
+        transition: 0.3s;
+    }
+
+
+    .card:hover {
+        transform: translateY(-3px);
+    }
+
+
+    /* ================= CARD HEADING ================= */
+
+    .card h2 {
+        color: #713b70;
+        font-size: 25px;
+        margin-bottom: 18px;
+    }
+
+
+    /* ================= LIST ================= */
+
+    .card ul {
+        padding-left: 25px;
+    }
+
+
+    .card li {
+        color: #666;
+        line-height: 1.7;
+        margin-bottom: 10px;
+    }
+
+
+    /* ================= BACK BUTTON ================= */
+
+    .back {
+        display: block;
+
+        width: 220px;
+
+        margin: 35px auto 10px;
+
+        padding: 14px;
+
+        border: none;
+
+        border-radius: 25px;
+
+        background: #9b4d96;
+
+        color: white;
+
+        font-size: 16px;
+
+        font-weight: bold;
+
+        cursor: pointer;
+
+        transition: 0.3s;
+    }
+
+
+    .back:hover {
+        background: #713b70;
+        transform: translateY(-2px);
+    }
+
+
+    /* ================= FOOTER ================= */
+
+    footer {
+        background: #3e293e;
+
+        color: white;
+
+        text-align: center;
+
+        padding: 25px;
+
+        margin-top: 70px;
+    }
+
+
+    footer p {
+        margin: 5px;
+
+        font-size: 14px;
+    }
+
+
+    /* ================= RESPONSIVE ================= */
+
+    @media (max-width: 850px) {
+
+        .page-header h1 {
+            font-size: 34px;
+        }
+
+        .container {
+            width: 90%;
+        }
+
+        .card {
+            padding: 25px;
+        }
+
+    }
+
+</style>
+
+
+</head>
+
+<body>
+
+<!-- ================= PAGE HEADER ================= -->
+
+<section class="page-header">
+
+
+<h1>
+    🌸 PMOS Lifestyle Recommendations
+</h1>
+
+<p>
+    Personalized lifestyle recommendations based on
+    your PMOS prediction result.
+</p>
+
+
+</section>
+
+<!-- ================= CONTENT ================= -->
+
+<div class="container">
+
+
+<!-- ================= HIGH RISK ================= -->
+
+{% if prediction == "1" %}
+
+
+<div class="status high-risk">
+
+    ⚠️ High Risk / PMOS Positive
+
+</div>
+
+
+
+<div class="card">
+
+    <h2>🥗 Diet Recommendations</h2>
+
+    <ul>
+
+        <li>Include plenty of vegetables in your daily meals.</li>
+
+        <li>Choose whole grains such as oats, brown rice and whole wheat.</li>
+
+        <li>Include protein such as eggs, fish, chicken, beans and lentils.</li>
+
+        <li>Choose healthy fats such as nuts, seeds and avocado.</li>
+
+        <li>Choose fresh fruits instead of sweets and sugary snacks.</li>
+
+        <li>Limit highly processed and fried foods.</li>
+
+        <li>Limit foods and drinks containing large amounts of added sugar.</li>
+
+        <li>Try to maintain regular meal timings.</li>
+
+        <li>Drink enough water throughout the day.</li>
+
+    </ul>
+
+</div>
+
+
+
+<div class="card">
+
+    <h2>🏃 Exercise Plan</h2>
+
+    <ul>
+
+        <li>Aim for around 30 minutes of physical activity on most days.</li>
+
+        <li><b>Monday:</b> 30 minutes brisk walking.</li>
+
+        <li><b>Tuesday:</b> 20–30 minutes strength exercises.</li>
+
+        <li><b>Wednesday:</b> 30 minutes walking or cycling.</li>
+
+        <li><b>Thursday:</b> 20–30 minutes yoga or stretching.</li>
+
+        <li><b>Friday:</b> 30 minutes brisk walking.</li>
+
+        <li><b>Saturday:</b> 20–30 minutes strength exercises.</li>
+
+        <li><b>Sunday:</b> Rest or light walking.</li>
+
+    </ul>
+
+</div>
+
+
+
+<div class="card">
+
+    <h2>😴 Sleep & Stress Management</h2>
+
+    <ul>
+
+        <li>Maintain a consistent sleep schedule.</li>
+
+        <li>Get adequate sleep every night.</li>
+
+        <li>Practice stress-management activities such as meditation or yoga.</li>
+
+        <li>Take short movement breaks if sitting for long periods.</li>
+
+        <li>Maintain a healthy daily routine.</li>
+
+    </ul>
+
+</div>
+
+
+
+<div class="card">
+
+    <h2>💧 Hydration</h2>
+
+    <ul>
+
+        <li>Drink water regularly throughout the day.</li>
+
+        <li>Choose water as your main everyday beverage.</li>
+
+        <li>Limit sugary drinks and soft drinks.</li>
+
+    </ul>
+
+</div>
+
+
+
+<div class="card">
+
+    <h2>📋 Health Monitoring</h2>
+
+    <ul>
+
+        <li>Keep track of your menstrual cycle.</li>
+
+        <li>Monitor changes in weight and general wellbeing.</li>
+
+        <li>Record changes in PCOS-related symptoms.</li>
+
+        <li>Keep track of irregular periods or other changes.</li>
+
+        <li>Discuss persistent or concerning symptoms with a healthcare professional.</li>
+
+    </ul>
+
+</div>
+
+
+
+<!-- ================= LOW RISK ================= -->
+
+{% else %}
+
+
+<div class="status low-risk">
+
+    ✅ Low Risk / PMOS Negative
+
+</div>
+
+
+
+<div class="card">
+
+    <h2>🥗 Healthy Diet</h2>
+
+    <ul>
+
+        <li>Continue eating a balanced diet with plenty of vegetables and fruits.</li>
+
+        <li>Include whole grains such as oats, brown rice and whole wheat.</li>
+
+        <li>Include healthy sources of protein such as eggs, fish, beans and lentils.</li>
+
+        <li>Include healthy fats such as nuts and seeds.</li>
+
+        <li>Limit highly processed foods.</li>
+
+        <li>Limit excessive sugary foods and drinks.</li>
+
+        <li>Maintain regular and balanced meals.</li>
+
+        <li>Drink enough water throughout the day.</li>
+
+    </ul>
+
+</div>
+
+
+
+<div class="card">
+
+    <h2>🏃 Exercise & Fitness</h2>
+
+    <ul>
+
+        <li>Stay physically active on a regular basis.</li>
+
+        <li>Aim for around 30 minutes of moderate activity on most days.</li>
+
+        <li>Walking, cycling or swimming are good options.</li>
+
+        <li>Include light strength exercises during the week.</li>
+
+        <li>Try yoga or stretching to improve flexibility and relaxation.</li>
+
+        <li>Choose activities that you enjoy so you can maintain them regularly.</li>
+
+    </ul>
+
+</div>
+
+
+
+<div class="card">
+
+    <h2>😴 Sleep & Lifestyle</h2>
+
+    <ul>
+
+        <li>Maintain a regular sleep schedule.</li>
+
+        <li>Get adequate sleep every night.</li>
+
+        <li>Manage stress through relaxation, hobbies or physical activity.</li>
+
+        <li>Avoid sitting continuously for long periods.</li>
+
+        <li>Maintain a healthy and active lifestyle.</li>
+
+    </ul>
+
+</div>
+
+
+
+<div class="card">
+
+    <h2>💧 Hydration</h2>
+
+    <ul>
+
+        <li>Drink water regularly throughout the day.</li>
+
+        <li>Choose water as your main everyday beverage.</li>
+
+        <li>Limit sugary drinks.</li>
+
+    </ul>
+
+</div>
+
+
+
+<div class="card">
+
+    <h2>📋 Health Monitoring</h2>
+
+    <ul>
+
+        <li>Keep track of your menstrual cycle.</li>
+
+        <li>Monitor your general health and wellbeing.</li>
+
+        <li>Pay attention to any new or persistent symptoms.</li>
+
+        <li>Maintain regular health checkups as appropriate.</li>
+
+        <li>If symptoms develop or persist, discuss them with a healthcare professional.</li>
+
+    </ul>
+
+</div>
+
+
+{% endif %}
+
+
+
+<!-- ================= BACK BUTTON ================= -->
+
+<button class="back"
+        onclick="window.location.href='/'">
+
+    ← Back to Prediction
+
+</button>
+
+</div>
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+
+<p>
+    🌸 <strong>OvaAssist</strong> - PMOS Health & Wellness
+</p>
+
+<p>
+    © 2026 OvaAssist. For educational and awareness purposes.
+</p>
+
+
+</footer>
+
+</body>
+
+</html>

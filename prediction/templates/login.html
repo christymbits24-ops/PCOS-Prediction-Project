@@ -1,0 +1,184 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login - PMOS</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #fff8fc;
+            color: #444;
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, #fcecf7, #f4efff);
+            text-align: center;
+            padding: 55px 20px;
+        }
+
+        .page-header h1 {
+            font-size: 42px;
+            color: #713b70;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            font-size: 17px;
+            color: #666;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 500px;
+            margin: 50px auto;
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+        }
+
+        h1 {
+            text-align: center;
+            color: #713b70;
+            font-size: 30px;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-top: 18px;
+            margin-bottom: 7px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 15px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #9b4d96;
+            box-shadow: 0 0 5px rgba(155,77,150,0.2);
+        }
+
+        button {
+            width: 100%;
+            margin-top: 28px;
+            padding: 14px;
+            background: #9b4d96;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #713b70;
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 22px;
+            color: #666;
+            font-size: 15px;
+        }
+
+        .register-link a {
+            color: #9b4d96;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .register-link a:hover {
+            color: #713b70;
+        }
+
+        footer {
+            background: #3e293e;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            margin-top: 70px;
+        }
+
+        footer p {
+            margin: 5px;
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+            .page-header h1 {
+                font-size: 34px;
+            }
+
+            .container {
+                width: 90%;
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="page-header">
+    
+</div>
+
+<div class="container">
+
+    <h1>Login</h1>
+
+    {% if error %}
+    <p style="color: red; text-align: center; margin-bottom: 15px;">
+        {{ error }}
+    </p>
+    {% endif %}
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <label>Username</label>
+        <input type="text" name="username" required>
+
+        <label>Password</label>
+        <input type="password" name="password" required>
+
+        <button type="submit">
+            Login
+        </button>
+
+    </form>
+
+    <div class="register-link">
+        Don't have an account?
+        <a href="/register/">Register</a>
+    </div>
+
+</div>
+
+<footer>
+    <p>© 2026 PMOS. All rights reserved.</p>
+    <p>PMOS Prediction & Recommendation System</p>
+</footer>
+
+</body>
+</html>
+

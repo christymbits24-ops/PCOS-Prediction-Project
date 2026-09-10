@@ -1,0 +1,661 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>PMOS Prediction</title>
+
+    <style>
+
+        /* ================= GENERAL ================= */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #fff8fc;
+            color: #444;
+        }
+
+
+        /* ================= PAGE HEADER ================= */
+
+        .page-header {
+            background: linear-gradient(135deg, #fcecf7, #f4efff);
+            text-align: center;
+            padding: 65px 20px;
+        }
+
+        .page-header h1 {
+            font-size: 42px;
+            color: #713b70;
+            margin-bottom: 15px;
+        }
+
+        .page-header p {
+            font-size: 18px;
+            color: #666;
+            max-width: 700px;
+            margin: auto;
+            line-height: 1.7;
+        }
+
+
+        /* ================= MAIN CONTAINER ================= */
+
+        .container {
+            width: 85%;
+            max-width: 750px;
+            margin: 60px auto;
+        }
+
+
+        /* ================= PREDICTION CARD ================= */
+
+        .prediction-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+
+            box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+
+            transition: 0.3s;
+        }
+
+        .prediction-card:hover {
+            transform: translateY(-3px);
+        }
+
+
+        /* ================= CARD HEADING ================= */
+
+        .prediction-card h2 {
+            color: #713b70;
+            font-size: 25px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .description {
+            text-align: center;
+            color: #666;
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+
+        /* ================= FORM ================= */
+
+        label {
+            display: block;
+            margin-top: 18px;
+            margin-bottom: 7px;
+
+            color: #713b70;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        input,
+        select {
+            width: 100%;
+
+            padding: 13px 15px;
+
+            border: 1px solid #ddd;
+
+            border-radius: 10px;
+
+            background: #fffafd;
+
+            font-size: 16px;
+
+            color: #444;
+
+            outline: none;
+
+            transition: 0.3s;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #9b4d96;
+
+            box-shadow: 0 0 5px rgba(155, 77, 150, 0.2);
+        }
+
+
+        /* ================= BUTTON ================= */
+
+        button {
+            width: 100%;
+
+            margin-top: 30px;
+
+            padding: 15px;
+
+            border: none;
+
+            border-radius: 25px;
+
+            background: #9b4d96;
+
+            color: white;
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #713b70;
+
+            transform: translateY(-2px);
+        }
+
+
+        /* ================= MESSAGE ================= */
+
+        #message {
+            margin-top: 20px;
+
+            text-align: center;
+
+            color: #c62828;
+
+            font-size: 15px;
+        }
+
+
+        /* ================= INFORMATION CARD ================= */
+
+        .info-card {
+            margin-top: 25px;
+
+            padding: 25px;
+
+            border-radius: 20px;
+
+            background: linear-gradient(135deg, #f6e8f5, #eee7ff);
+
+            text-align: center;
+        }
+
+        .info-card h3 {
+            color: #713b70;
+
+            margin-bottom: 10px;
+
+            font-size: 20px;
+        }
+
+        .info-card p {
+            color: #666;
+
+            line-height: 1.7;
+
+            font-size: 15px;
+        }
+
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            background: #3e293e;
+
+            color: white;
+
+            text-align: center;
+
+            padding: 25px;
+
+            margin-top: 70px;
+        }
+
+        footer p {
+            margin: 5px;
+
+            font-size: 14px;
+        }
+
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 850px) {
+
+            .page-header h1 {
+                font-size: 34px;
+            }
+
+            .container {
+                width: 90%;
+            }
+
+            .prediction-card {
+                padding: 25px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= PAGE HEADER ================= -->
+
+<section class="page-header">
+
+</section>
+
+
+<!-- ================= CONTENT ================= -->
+
+<div class="container">
+
+
+    <!-- Prediction Form -->
+
+    <div class="prediction-card">
+
+        <h2>
+            🤖 PMOS Risk Prediction
+        </h2>
+
+        <p class="description">
+            Enter your details to check the predicted PMOS risk.
+        </p>
+
+
+        <form id="predictionForm">
+
+
+            <label>
+                Age
+            </label>
+
+            <input type="number"
+                   id="age"
+                   required>
+
+
+            <label>
+                Weight (Kg)
+            </label>
+
+            <input type="number"
+                   id="weight"
+                   step="0.01"
+                   required>
+
+
+            <label>
+                Height (Cm)
+            </label>
+
+            <input type="number"
+                   id="height"
+                   step="0.01"
+                   required>
+
+
+            <label>
+                BMI
+            </label>
+
+            <input type="number"
+                   id="bmi"
+                   step="0.01"
+                   required>
+
+
+            <label>
+                Cycle
+            </label>
+
+            <select id="cycle"
+                    required>
+
+                <option value="0">
+                    Regular
+                </option>
+
+                <option value="1">
+                    Irregular
+                </option>
+
+            </select>
+
+
+            <label>
+                Cycle Length (Days)
+            </label>
+
+            <input type="number"
+                   id="cycle_length"
+                   required>
+
+
+            <label>
+                Weight Gain
+            </label>
+
+            <select id="weight_gain"
+                    required>
+
+                <option value="0">
+                    No
+                </option>
+
+                <option value="1">
+                    Yes
+                </option>
+
+            </select>
+
+
+            <label>
+                Hair Growth
+            </label>
+
+            <select id="hair_growth"
+                    required>
+
+                <option value="0">
+                    No
+                </option>
+
+                <option value="1">
+                    Yes
+                </option>
+
+            </select>
+
+
+            <label>
+                Pimples
+            </label>
+
+            <select id="pimples"
+                    required>
+
+                <option value="0">
+                    No
+                </option>
+
+                <option value="1">
+                    Yes
+                </option>
+
+            </select>
+
+
+            <button type="submit">
+                Predict PMOS
+            </button>
+
+
+        </form>
+
+
+        <div id="message"></div>
+
+    </div>
+
+
+    <!-- Information -->
+
+    <div class="info-card">
+
+        <h3>
+            🌸 About the Prediction
+        </h3>
+
+        <p>
+            This system uses a Machine Learning model to estimate
+            PMOS risk based on the information entered above.
+            The result is intended for educational and awareness
+            purposes and should not replace professional medical advice.
+        </p>
+
+    </div>
+
+
+</div>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <p>
+        🌸 <strong>OvaAssist</strong> - PMOS Health & Wellness
+    </p>
+
+    <p>
+        © 2026 OvaAssist. For educational and awareness purposes.
+    </p>
+
+</footer>
+
+
+<script>
+
+
+/* ================= CSRF TOKEN ================= */
+
+function getCookie(name) {
+
+    let cookieValue = null;
+
+    if (document.cookie && document.cookie !== "") {
+
+        const cookies = document.cookie.split(";");
+
+        for (let cookie of cookies) {
+
+            cookie = cookie.trim();
+
+            if (cookie.startsWith(name + "=")) {
+
+                cookieValue = decodeURIComponent(
+                    cookie.substring(name.length + 1)
+                );
+
+                break;
+            }
+        }
+    }
+
+    return cookieValue;
+}
+
+
+/* ================= PREDICTION FORM ================= */
+
+document.getElementById("predictionForm").addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+        const message =
+            document.getElementById("message");
+
+        message.innerHTML = "Predicting...";
+
+
+        /* ================= GET FORM DATA ================= */
+
+        const data = {
+
+            age:
+                Number(
+                    document.getElementById("age").value
+                ),
+
+            weight:
+                Number(
+                    document.getElementById("weight").value
+                ),
+
+            height:
+                Number(
+                    document.getElementById("height").value
+                ),
+
+            bmi:
+                Number(
+                    document.getElementById("bmi").value
+                ),
+
+            cycle:
+                Number(
+                    document.getElementById("cycle").value
+                ),
+
+            cycle_length:
+                Number(
+                    document.getElementById("cycle_length").value
+                ),
+
+            weight_gain:
+                Number(
+                    document.getElementById("weight_gain").value
+                ),
+
+            hair_growth:
+                Number(
+                    document.getElementById("hair_growth").value
+                ),
+
+            pimples:
+                Number(
+                    document.getElementById("pimples").value
+                )
+
+        };
+
+
+        /* ================= SEND TO DJANGO ================= */
+
+        try {
+
+            const response = await fetch(
+                "/api/predict/",
+                {
+
+                    method: "POST",
+
+                    headers: {
+
+                        "Content-Type":
+                            "application/json",
+
+                        "X-CSRFToken":
+                            getCookie("csrftoken")
+
+                    },
+
+                    body:
+                        JSON.stringify(data)
+
+                }
+            );
+
+
+            /* ================= GET RESPONSE ================= */
+
+            const result =
+                await response.json();
+
+
+            /* ================= SUCCESS ================= */
+
+            if (response.ok) {
+
+
+                // Save prediction result
+
+                localStorage.setItem(
+                    "pcosPrediction",
+                    result.prediction
+                );
+
+
+                localStorage.setItem(
+                    "pcosProbability",
+                    result.probability
+                );
+
+
+                localStorage.setItem(
+                    "pcosResult",
+                    result.result
+                );
+
+
+                // Go to result page
+
+                window.location.href =
+                    "/result/";
+
+
+            }
+
+
+            /* ================= ERROR ================= */
+
+            else {
+
+                message.innerHTML =
+                    "Error: " +
+                    (result.error ||
+                     "Prediction failed");
+
+            }
+
+
+        }
+
+
+        /* ================= CONNECTION ERROR ================= */
+
+        catch (error) {
+
+            message.innerHTML =
+                "Cannot connect to Django backend.";
+
+            console.error(error);
+
+        }
+
+    }
+);
+
+
+</script>
+
+
+</body>
+
+</html>
+

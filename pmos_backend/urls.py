@@ -1,10 +1,22 @@
+
 from django.contrib import admin
 from django.urls import path, include
-from prediction.views import home, result_page, recommendation_page
+
+from prediction.views import (
+    home,
+    prediction_page,
+    result_page,
+    recommendation_page,
+    about_page,
+    register_page,
+    login_page
+)
 
 urlpatterns = [
 
     path("", home, name="home"),
+
+    path("prediction/", prediction_page, name="prediction"),
 
     path("admin/", admin.site.urls),
 
@@ -18,4 +30,10 @@ urlpatterns = [
         name="recommendation"
     ),
 
+    path("about/", about_page, name="about"),
+
+    path("register/", register_page, name="register"),
+
+    path("login/", login_page, name="login"),
 ]
+

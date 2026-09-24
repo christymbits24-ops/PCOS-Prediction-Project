@@ -4,135 +4,649 @@
 <head>
     <title>Register - PMOS</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    
+<style>
 
-        body {
-            font-family: Arial, sans-serif;
-            background: #fff8fc;
-            color: #444;
-        }
+/* ================= GENERAL ================= */
 
-        .page-header {
-            background: linear-gradient(135deg, #fcecf7, #f4efff);
-            text-align: center;
-            padding: 55px 20px;
-        }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-        .page-header h1 {
-            font-size: 42px;
-            color: #713b70;
-            margin-bottom: 10px;
-        }
+html {
+    scroll-behavior: smooth;
+}
 
-        .page-header p {
-            font-size: 17px;
-            color: #666;
-        }
+body {
+    min-height: 100vh;
 
-        .container {
-            width: 90%;
-            max-width: 500px;
-            margin: 50px auto;
-            background: white;
-            padding: 35px;
-            border-radius: 20px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.07);
-        }
+    font-family: "Segoe UI", Arial, sans-serif;
 
-        h1 {
-            text-align: center;
-            color: #713b70;
-            font-size: 30px;
-            margin-bottom: 25px;
-        }
+    background:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(118, 84, 255, 0.15),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 85% 80%,
+            rgba(0, 207, 255, 0.12),
+            transparent 30%
+        ),
+        #020b1c;
 
-        label {
-            display: block;
-            margin-top: 18px;
-            margin-bottom: 7px;
-            font-weight: bold;
-            color: #555;
-        }
+    color: #102448;
 
-        input {
-            width: 100%;
-            padding: 13px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            font-size: 15px;
-            outline: none;
-            transition: 0.3s;
-        }
+    overflow-x: hidden;
+}
 
-        input:focus {
-            border-color: #9b4d96;
-            box-shadow: 0 0 5px rgba(155,77,150,0.2);
-        }
 
-        button {
-            width: 100%;
-            margin-top: 28px;
-            padding: 14px;
-            background: #9b4d96;
-            color: white;
-            border: none;
-            border-radius: 25px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+/* ================= DIGITAL GRID ================= */
 
-        button:hover {
-            background: #713b70;
-        }
+body::before {
 
-        .login-link {
-            text-align: center;
-            margin-top: 22px;
-            color: #666;
-            font-size: 15px;
-        }
+    content: "";
 
-        .login-link a {
-            color: #9b4d96;
-            text-decoration: none;
-            font-weight: bold;
-        }
+    position: fixed;
 
-        .login-link a:hover {
-            color: #713b70;
-        }
+    inset: 0;
 
-        footer {
-            background: #3e293e;
-            color: white;
-            text-align: center;
-            padding: 25px;
-            margin-top: 70px;
-        }
+    background-image:
+        linear-gradient(
+            rgba(0, 217, 255, 0.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(0, 217, 255, 0.025) 1px,
+            transparent 1px
+        );
 
-        footer p {
-            margin: 5px;
-            font-size: 14px;
-        }
+    background-size: 45px 45px;
 
-        @media (max-width: 600px) {
-            .page-header h1 {
-                font-size: 34px;
-            }
+    pointer-events: none;
 
-            .container {
-                width: 90%;
-                padding: 25px;
-            }
-        }
-    </style>
+    z-index: -2;
+}
+
+
+/* ================= GLOWING CIRCLE ================= */
+
+body::after {
+
+    content: "";
+
+    position: fixed;
+
+    width: 430px;
+    height: 430px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid rgba(0, 217, 255, 0.10);
+
+    top: 50%;
+    left: 50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    box-shadow:
+        0 0 100px rgba(0, 153, 255, 0.07),
+        inset 0 0 100px rgba(118, 84, 255, 0.06);
+
+    animation:
+        rotateCircle 25s linear infinite;
+
+    pointer-events: none;
+
+    z-index: -1;
+}
+
+
+@keyframes rotateCircle {
+
+    from {
+        transform:
+            translate(-50%, -50%)
+            rotate(0deg);
+    }
+
+    to {
+        transform:
+            translate(-50%, -50%)
+            rotate(360deg);
+    }
+
+}
+
+
+/* ================= PAGE HEADER ================= */
+
+.page-header {
+
+    min-height: 300px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    padding: 60px 20px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 80% 40%,
+            rgba(0, 124, 255, 0.22),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(118, 84, 255, 0.18),
+            transparent 30%
+        ),
+        #020b1c;
+}
+
+
+/* Digital grid inside header */
+
+.page-header::after {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            rgba(0, 217, 255, 0.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(0, 217, 255, 0.025) 1px,
+            transparent 1px
+        );
+
+    background-size: 45px 45px;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            transparent,
+            black,
+            transparent
+        );
+
+    pointer-events: none;
+}
+
+
+/* Header circle */
+
+.page-header::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 300px;
+    height: 300px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid rgba(0, 217, 255, 0.10);
+
+    box-shadow:
+        0 0 70px rgba(0, 153, 255, 0.08),
+        inset 0 0 70px rgba(0, 153, 255, 0.05);
+
+    animation:
+        rotateCircle 20s linear infinite;
+}
+
+
+/* Header heading */
+
+.page-header h1 {
+
+    font-size: clamp(38px, 5vw, 55px);
+
+    color: #ffffff;
+
+    margin-bottom: 15px;
+
+    line-height: 1.1;
+
+    position: relative;
+
+    z-index: 2;
+
+    text-shadow:
+        0 0 25px rgba(118, 84, 255, 0.35);
+}
+
+
+/* Header paragraph */
+
+.page-header p {
+
+    font-size: 17px;
+
+    color: #aebed7;
+
+    position: relative;
+
+    z-index: 2;
+}
+
+
+/* ================= REGISTER CONTAINER ================= */
+
+.container {
+
+    width: 90%;
+
+    max-width: 500px;
+
+    margin: 60px auto;
+
+    background:
+        rgba(255, 255, 255, 0.97);
+
+    padding: 38px;
+
+    border-radius: 22px;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.75);
+
+    box-shadow:
+        0 20px 55px rgba(0, 0, 0, 0.22),
+        0 0 40px rgba(118, 84, 255, 0.08);
+
+    position: relative;
+
+    overflow: hidden;
+
+    animation:
+        containerAppear 0.7s ease;
+}
+
+
+@keyframes containerAppear {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(25px);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+
+}
+
+
+/* Gradient top line */
+
+.container::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 4px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #7654ff,
+            #536fff,
+            #00cfff
+        );
+}
+
+
+/* ================= FORM HEADING ================= */
+
+.container h1 {
+
+    text-align: center;
+
+    color: #203f73;
+
+    font-size: 30px;
+
+    margin-bottom: 25px;
+
+    text-shadow:
+        0 0 15px rgba(118, 84, 255, 0.12);
+}
+
+
+/* ================= ERROR MESSAGE ================= */
+
+.container > p {
+
+    margin-bottom: 15px;
+
+    padding: 10px;
+
+    border-radius: 8px;
+
+    background: #fff1f1;
+
+    font-size: 14px;
+}
+
+
+/* ================= LABEL ================= */
+
+label {
+
+    display: block;
+
+    margin-top: 18px;
+
+    margin-bottom: 7px;
+
+    font-weight: 600;
+
+    color: #304f82;
+
+    font-size: 15px;
+
+    letter-spacing: 0.2px;
+}
+
+
+/* ================= INPUT ================= */
+
+input {
+
+    width: 100%;
+
+    padding: 14px 15px;
+
+    border:
+        1px solid #d9e3f2;
+
+    border-radius: 11px;
+
+    font-size: 15px;
+
+    color: #263d61;
+
+    background: #f8faff;
+
+    outline: none;
+
+    transition: 0.3s;
+
+    box-shadow:
+        inset 0 1px 2px rgba(30, 60, 100, 0.03);
+}
+
+
+/* Input hover */
+
+input:hover {
+
+    border-color:
+        rgba(118, 84, 255, 0.40);
+
+    background: #ffffff;
+}
+
+
+/* Input focus */
+
+input:focus {
+
+    border-color: #7654ff;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 0 0 3px rgba(118, 84, 255, 0.10),
+        0 0 18px rgba(0, 207, 255, 0.08);
+}
+
+
+/* ================= REGISTER BUTTON ================= */
+
+button {
+
+    width: 100%;
+
+    margin-top: 28px;
+
+    padding: 15px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #7654ff,
+            #536fff,
+            #00cfff
+        );
+
+    background-size: 200% auto;
+
+    color: white;
+
+    border: none;
+
+    border-radius: 13px;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+
+    box-shadow:
+        0 8px 25px rgba(75, 105, 255, 0.25);
+}
+
+
+button:hover {
+
+    background-position: right center;
+
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        0 12px 32px rgba(0, 207, 255, 0.32);
+}
+
+
+button:active {
+
+    transform:
+        translateY(0);
+}
+
+
+/* ================= LOGIN LINK ================= */
+
+.login-link {
+
+    text-align: center;
+
+    margin-top: 22px;
+
+    color: #657792;
+
+    font-size: 15px;
+}
+
+
+.login-link a {
+
+    color: #7654ff;
+
+    text-decoration: none;
+
+    font-weight: bold;
+
+    transition: 0.3s;
+}
+
+
+.login-link a:hover {
+
+    color: #00aee8;
+
+    text-shadow:
+        0 0 10px rgba(0, 207, 255, 0.25);
+}
+
+
+/* ================= FOOTER ================= */
+
+footer {
+
+    background: #010817;
+
+    color: white;
+
+    text-align: center;
+
+    padding: 30px;
+
+    margin-top: 70px;
+
+    border-top:
+        1px solid rgba(100, 190, 255, 0.10);
+}
+
+
+footer p {
+
+    margin: 5px;
+
+    font-size: 14px;
+
+    color: #91a4c0;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 600px) {
+
+    .page-header {
+
+        min-height: 270px;
+
+        padding: 55px 18px;
+    }
+
+    .page-header h1 {
+
+        font-size: 34px;
+    }
+
+    .page-header p {
+
+        font-size: 15px;
+    }
+
+    .container {
+
+        width: 92%;
+
+        padding: 30px 22px;
+
+        margin: 45px auto;
+    }
+
+    .container h1 {
+
+        font-size: 26px;
+    }
+
+    input {
+
+        padding: 13px;
+    }
+
+    button {
+
+        padding: 14px;
+    }
+
+    footer {
+
+        padding: 25px 15px;
+    }
+
+}
+
+
+/* ================= SOFT GLOW ================= */
+
+@keyframes softGlow {
+
+    0%,
+    100% {
+
+        box-shadow:
+            0 20px 55px rgba(0, 0, 0, 0.22),
+            0 0 40px rgba(118, 84, 255, 0.08);
+    }
+
+    50% {
+
+        box-shadow:
+            0 20px 55px rgba(0, 0, 0, 0.22),
+            0 0 50px rgba(0, 207, 255, 0.12);
+    }
+
+}
+
+
+.container {
+
+    animation:
+        containerAppear 0.7s ease,
+        softGlow 6s ease-in-out infinite;
+}
+
+</style>
+
+
 </head>
 
 <body>
@@ -174,11 +688,7 @@
 
     </form>
 
-    <div class="login-link">
-        Already have an account?
-        <a href="/login/">Login</a>
-    </div>
-
+  
 </div>
 
 <footer>

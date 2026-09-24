@@ -10,95 +10,570 @@
 
     <title>PMOS Prediction Result</title>
 
-    <style>
+<style>
 
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f5f3ff;
-        }
+/* ================= GENERAL ================= */
 
-        .container {
-            width: 90%;
-            max-width: 600px;
-            margin: 100px auto;
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        }
-
-        h1 {
-            color: #6a4bbc;
-        }
-
-        #result {
-            margin: 30px 0;
-            padding: 25px;
-            border-radius: 12px;
-            font-size: 22px;
-            font-weight: bold;
-        }
-
-        .positive {
-            background: #ffe5e5;
-            color: #c62828;
-        }
-
-        .negative {
-            background: #e5f7e5;
-            color: #2e7d32;
-        }
-
-        button {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 8px;
-            background: #6a4bbc;
-            color: white;
-            font-size: 17px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background: #54399c;
-        }
-
-        .navbar {
-    background: white;
-    padding: 15px 25px;
-    border-radius: 12px;
-    margin-bottom: 30px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+
+    font-family: "Segoe UI", Arial, sans-serif;
+
+    background:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(118, 84, 255, 0.15),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 85% 80%,
+            rgba(0, 207, 255, 0.12),
+            transparent 30%
+        ),
+        #020b1c;
+
+    color: #102448;
+
+    overflow-x: hidden;
+}
+
+
+/* ================= BACKGROUND GRID ================= */
+
+body::before {
+
+    content: "";
+
+    position: fixed;
+
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            rgba(0, 217, 255, 0.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(0, 217, 255, 0.025) 1px,
+            transparent 1px
+        );
+
+    background-size: 45px 45px;
+
+    pointer-events: none;
+
+    z-index: -2;
+}
+
+
+/* ================= GLOWING CIRCLE ================= */
+
+body::after {
+
+    content: "";
+
+    position: fixed;
+
+    width: 430px;
+    height: 430px;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(0, 217, 255, 0.10);
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    box-shadow:
+        0 0 100px rgba(0, 153, 255, 0.07),
+        inset 0 0 100px rgba(118, 84, 255, 0.06);
+
+    animation:
+        rotateCircle 25s linear infinite;
+
+    pointer-events: none;
+
+    z-index: -1;
+}
+
+
+@keyframes rotateCircle {
+
+    from {
+        transform:
+            translate(-50%, -50%)
+            rotate(0deg);
+    }
+
+    to {
+        transform:
+            translate(-50%, -50%)
+            rotate(360deg);
+    }
+
+}
+
+
+/* ================= MAIN CONTAINER ================= */
+
+.container {
+
+    width: 90%;
+
+    max-width: 620px;
+
+    margin: 90px auto;
+
+    background:
+        rgba(255, 255, 255, 0.97);
+
+    padding: 45px;
+
+    border-radius: 24px;
+
+    text-align: center;
+
+    border: 1px solid rgba(255, 255, 255, 0.75);
+
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.28),
+        0 0 45px rgba(118, 84, 255, 0.08);
+
+    position: relative;
+
+    overflow: hidden;
+
+    animation:
+        containerAppear 0.7s ease;
+}
+
+
+@keyframes containerAppear {
+
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+/* Gradient top border */
+
+.container::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 4px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #7654ff,
+            #536fff,
+            #00cfff
+        );
+}
+
+
+/* ================= HEADING ================= */
+
+h1 {
+
+    color: #203f73;
+
+    font-size: 32px;
+
+    margin-bottom: 25px;
+
+    line-height: 1.2;
+
+    text-shadow:
+        0 0 18px rgba(118, 84, 255, 0.15);
+}
+
+
+/* ================= RESULT ================= */
+
+#result {
+
+    margin: 30px 0;
+
+    padding: 28px 22px;
+
+    border-radius: 18px;
+
+    font-size: 22px;
+
+    font-weight: bold;
+
+    line-height: 1.5;
+
+    border: 1px solid;
+
+    position: relative;
+
+    overflow: hidden;
+
+    animation:
+        resultAppear 0.8s ease;
+}
+
+
+@keyframes resultAppear {
+
+    from {
+        opacity: 0;
+        transform: scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+}
+
+
+/* ================= POSITIVE RESULT ================= */
+
+.positive {
+
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(255, 80, 80, 0.08),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #fff0f0,
+            #f8edff
+        );
+
+    color: #c62828;
+
+    border-color:
+        rgba(198, 40, 40, 0.16);
+
+    box-shadow:
+        0 12px 35px rgba(198, 40, 40, 0.10);
+}
+
+
+/* ================= NEGATIVE RESULT ================= */
+
+.negative {
+
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(0, 180, 120, 0.08),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #edfff4,
+            #eefaff
+        );
+
+    color: #2e7d32;
+
+    border-color:
+        rgba(46, 125, 50, 0.16);
+
+    box-shadow:
+        0 12px 35px rgba(46, 125, 50, 0.10);
+}
+
+
+/* ================= RESULT SHINE ================= */
+
+#result::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: -100%;
+
+    width: 60%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.35),
+            transparent
+        );
+
+    animation:
+        resultShine 4s ease-in-out infinite;
+}
+
+
+@keyframes resultShine {
+
+    0% {
+        left: -100%;
+    }
+
+    45%,
+    100% {
+        left: 150%;
+    }
+
+}
+
+
+/* ================= BUTTON ================= */
+
+button {
+
+    width: 100%;
+
+    padding: 15px 20px;
+
+    border: none;
+
+    border-radius: 13px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #7654ff,
+            #536fff,
+            #00cfff
+        );
+
+    background-size: 200% auto;
+
+    color: white;
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+
+    box-shadow:
+        0 8px 25px rgba(75, 105, 255, 0.25);
+}
+
+
+button:hover {
+
+    transform: translateY(-3px);
+
+    background-position: right center;
+
+    box-shadow:
+        0 12px 35px rgba(0, 207, 255, 0.35);
+}
+
+
+button:active {
+
+    transform: translateY(0);
+
+}
+
+
+/* ================= OLD NAVBAR SUPPORT ================= */
+
+/*
+   Kept so your existing navbar styles still work
+   if navbar elements are added later.
+*/
+
+.navbar {
+
+    background:
+        rgba(2, 11, 28, 0.94);
+
+    padding: 15px 25px;
+
+    border-radius: 14px;
+
+    margin-bottom: 30px;
+
+    box-shadow:
+        0 8px 30px rgba(0, 0, 0, 0.20);
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    backdrop-filter: blur(15px);
+
+    border:
+        1px solid rgba(100, 190, 255, 0.12);
+}
+
 
 .logo {
-    color: #6a4bbc;
+
+    color: #ffffff;
+
     font-size: 24px;
+
     font-weight: bold;
+
+    text-shadow:
+        0 0 15px rgba(118, 84, 255, 0.35);
 }
 
+
 .nav-links {
+
     display: flex;
+
     gap: 20px;
 }
 
+
 .nav-links a {
+
     text-decoration: none;
-    color: #54399c;
-    font-weight: bold;
+
+    color: #cbd8ed;
+
+    font-weight: 600;
+
+    transition: 0.3s;
 }
+
 
 .nav-links a:hover {
-    color: #6a4bbc;
+
+    color: #ffffff;
+
+    text-shadow:
+        0 0 12px rgba(0, 217, 255, 0.50);
 }
 
-    </style>
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 650px) {
+
+    .container {
+
+        width: 92%;
+
+        margin: 60px auto;
+
+        padding: 32px 22px;
+
+        border-radius: 20px;
+    }
+
+    h1 {
+
+        font-size: 27px;
+    }
+
+    #result {
+
+        font-size: 19px;
+
+        padding: 23px 15px;
+    }
+
+    button {
+
+        font-size: 16px;
+
+        padding: 14px;
+    }
+
+}
+
+
+@media (max-width: 400px) {
+
+    .container {
+
+        width: 94%;
+
+        padding: 28px 17px;
+    }
+
+    h1 {
+
+        font-size: 24px;
+    }
+
+    #result {
+
+        font-size: 17px;
+    }
+
+}
+
+
+/* ================= SOFT CONTAINER GLOW ================= */
+
+@keyframes softGlow {
+
+    0%,
+    100% {
+
+        box-shadow:
+            0 25px 70px rgba(0, 0, 0, 0.28),
+            0 0 45px rgba(118, 84, 255, 0.08);
+    }
+
+    50% {
+
+        box-shadow:
+            0 25px 70px rgba(0, 0, 0, 0.28),
+            0 0 55px rgba(0, 207, 255, 0.12);
+    }
+
+}
+
+
+.container {
+
+    animation:
+        containerAppear 0.7s ease,
+        softGlow 6s ease-in-out infinite;
+}
+
+</style>
+```
+
 
 </head>
 
@@ -121,13 +596,13 @@
 <script>
 
 const prediction =
-    Number(localStorage.getItem("pcosPrediction"));
+    Number(localStorage.getItem("pmosPrediction"));
 
 const probability =
-    localStorage.getItem("pcosProbability");
+    localStorage.getItem("pmosProbability");
 
 const resultText =
-    localStorage.getItem("pcosResult");
+    localStorage.getItem("pmosResult");
 
 
 const resultDiv =

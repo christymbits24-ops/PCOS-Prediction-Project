@@ -1,14 +1,16 @@
+
 import os
 import joblib
 import numpy as np
 
-from django.shortcuts import render , redirect
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
+from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from django.shortcuts import redirect
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
 from .models import Prediction
+
 
 # =========================
 # Load ML model
@@ -34,7 +36,18 @@ def login_page(request):
         username = request.POST.get("username")
         password = request.POST.get("password")
 
-        # Check username and password
+        # Check empty fields
+        if not username or not password:
+
+            return render(
+                request,
+                "login.html",
+                {
+                    "error": "Username and password cannot be empty."
+                }
+            )
+
+        # Authenticate user
         user = authenticate(
             request,
             username=username,
@@ -43,20 +56,19 @@ def login_page(request):
 
         if user is not None:
 
-            # Login the user
+            # Login user
             login(request, user)
 
-            # Go to prediction page
-            return redirect("/prediction/")
+            # Go to dashboard
+            return redirect("/dashboard/")
 
         else:
 
-            # Invalid username or password
             return render(
                 request,
                 "login.html",
                 {
-                    "error": "Invalid username or password"
+                    "error": "Invalid username or password."
                 }
             )
 
@@ -65,7 +77,9 @@ def login_page(request):
 
 
 
-
+# =========================
+# Registration page
+# =========================
 
 def register_page(request):
 
@@ -76,37 +90,100 @@ def register_page(request):
         password = request.POST.get("password")
         confirm_password = request.POST.get("confirm_password")
 
+        # Check passwords
         if password != confirm_password:
             return render(request, "register.html", {
                 "error": "Passwords do not match."
             })
 
+        # Check username
         if User.objects.filter(username=username).exists():
             return render(request, "register.html", {
                 "error": "Username already exists."
             })
 
+        # Create user
         user = User.objects.create_user(
             username=username,
             email=email,
             password=password
         )
 
-        user.save()
+        # Automatically login the user
+        login(request, user)
 
-        return redirect("/login/")
+        # Go to Dashboard
+        return redirect("/prediction/")
 
     return render(request, "register.html")
 
 
+def dashboard_page(request):
+
+    # Make sure the user is logged in
+    if not request.user.is_authenticated:
+        return redirect("/login/")
+
+    # =========================
+    # ADMIN DASHBOARD
+    # =========================
+    if request.user.is_staff or request.user.is_superuser:
+
+        # Get ALL predictions from ALL users
+        predictions = Prediction.objects.select_related("user").order_by("-id")
+
+        return render(
+            request,
+            "dashboard.html",
+            {
+                "is_admin": True,
+                "predictions": predictions,
+                "username": request.user.username,
+                "email": request.user.email,
+            }
+        )
+
+    # =========================
+    # NORMAL USER DASHBOARD
+    # =========================
+    else:
+
+        # Get only predictions made by logged-in user
+        predictions = Prediction.objects.filter(
+            user=request.user
+        ).order_by("-id")
+
+        # Get latest prediction
+        latest_prediction = predictions.first()
+
+        return render(
+            request,
+            "dashboard.html",
+            {
+                "is_admin": False,
+                "predictions": predictions,
+                "latest_prediction": latest_prediction,
+                "username": request.user.username,
+                "email": request.user.email,
+                "positive_predictions": positive_predictions,
+                "negative_predictions": negative_predictions,
+            }
+        )
+
+# =========================
+# Prediction page
+# =========================
+
 def prediction_page(request):
     return render(request, "index.html")
-    
 
+
+# =========================
+# About page
+# =========================
 
 def about_page(request):
     return render(request, "about.html")
-
 
 
 # =========================
@@ -134,7 +211,7 @@ def recommendation_page(request):
 
 
 # =========================
-# PCOS Prediction API
+# PMOS Prediction API
 # =========================
 
 @api_view(["POST"])
@@ -142,10 +219,10 @@ def predict(request):
 
     try:
 
-        # Check if user is logged in
+        # Check if user is registered/logged in
         if not request.user.is_authenticated:
             return Response(
-                {"error": "Please login first."},
+                {"error": "Please register first."},
                 status=401
             )
 
@@ -159,7 +236,7 @@ def predict(request):
         hair_growth = float(request.data.get("hair_growth"))
         pimples = float(request.data.get("pimples"))
 
-        # Same order as your trained model
+        # Same order as trained model
         features = np.array([[
             age,
             weight,
@@ -189,7 +266,7 @@ def predict(request):
             result = "PCOS Negative"
 
         # =========================
-        # SAVE PREDICTION TO DATABASE
+        # SAVE PREDICTION
         # =========================
 
         Prediction.objects.create(
@@ -208,7 +285,7 @@ def predict(request):
         )
 
         # =========================
-        # SEND RESULT TO FRONTEND
+        # SEND RESULT
         # =========================
 
         return Response({

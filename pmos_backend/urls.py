@@ -4,12 +4,14 @@ from django.urls import path, include
 
 from prediction.views import (
     home,
+    about_page,
     prediction_page,
     result_page,
     recommendation_page,
-    about_page,
     register_page,
-    login_page
+    login_page,
+    dashboard_page,
+    predict
 )
 
 urlpatterns = [
@@ -34,6 +36,9 @@ urlpatterns = [
 
     path("register/", register_page, name="register"),
 
+    path("dashboard/", dashboard_page, name="dashboard"),
+
     path("login/", login_page, name="login"),
+
 ]
 

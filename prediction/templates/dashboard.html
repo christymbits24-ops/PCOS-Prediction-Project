@@ -1,0 +1,1819 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard - OvaAssist</title>
+
+<style>
+
+/* ================= GENERAL ================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #020b1c;
+    color: #102448;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+
+/* ================= HEADER ================= */
+
+.header {
+
+    min-height: 330px;
+
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    padding: 60px 20px;
+
+    overflow: hidden;
+
+    background:
+
+        radial-gradient(
+            circle at 80% 40%,
+            rgba(0, 124, 255, 0.22),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(118, 84, 255, 0.18),
+            transparent 30%
+        ),
+
+        #020b1c;
+}
+
+
+/* Digital Grid */
+
+.header::after {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background-image:
+
+        linear-gradient(
+            rgba(0, 217, 255, 0.025) 1px,
+            transparent 1px
+        ),
+
+        linear-gradient(
+            90deg,
+            rgba(0, 217, 255, 0.025) 1px,
+            transparent 1px
+        );
+
+    background-size: 45px 45px;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            transparent,
+            black,
+            transparent
+        );
+
+    pointer-events: none;
+}
+
+
+/* Glowing Circle */
+
+.header::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 320px;
+    height: 320px;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(0, 217, 255, 0.12);
+
+    box-shadow:
+
+        0 0 80px rgba(0, 153, 255, 0.08),
+
+        inset 0 0 80px rgba(0, 153, 255, 0.05);
+
+    animation: rotateCircle 20s linear infinite;
+}
+
+
+@keyframes rotateCircle {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
+
+/* Header Text */
+
+.header h1 {
+
+    position: relative;
+
+    z-index: 2;
+
+    color: white;
+
+    font-size: clamp(40px, 5vw, 58px);
+
+    margin-bottom: 12px;
+
+    text-shadow:
+        0 0 25px rgba(118, 84, 255, 0.35);
+}
+
+
+.header p {
+
+    position: relative;
+
+    z-index: 2;
+
+    color: #aebed7;
+
+    font-size: 17px;
+
+}
+
+
+/* ================= MAIN ================= */
+
+.container {
+
+    background: #f4f7ff;
+
+    padding: 70px 8%;
+
+    min-height: 600px;
+}
+
+
+/* ================= WELCOME ================= */
+
+.welcome {
+
+    max-width: 1100px;
+
+    margin: 0 auto 35px;
+
+    text-align: center;
+}
+
+
+.welcome h2 {
+
+    color: #203f73;
+
+    font-size: 30px;
+
+    margin-bottom: 8px;
+}
+
+
+.welcome p {
+
+    color: #657792;
+
+    font-size: 16px;
+}
+
+
+/* ================= STAT CARDS ================= */
+
+.stats {
+
+    max-width: 1100px;
+
+    margin: 0 auto 35px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 22px;
+}
+
+
+.stat-card {
+
+    background: white;
+
+    padding: 28px;
+
+    border-radius: 20px;
+
+    text-align: center;
+
+    border: 1px solid #e1e9f7;
+
+    box-shadow:
+        0 12px 35px rgba(20, 45, 90, 0.10);
+
+    transition: 0.3s;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+
+.stat-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+
+    height: 4px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #7654ff,
+            #00cfff
+        );
+}
+
+
+.stat-card:hover {
+
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 20px 45px rgba(40, 70, 130, 0.16);
+}
+
+
+.stat-icon {
+
+    font-size: 32px;
+
+    margin-bottom: 8px;
+}
+
+
+.stat-card h3 {
+
+    color: #203f73;
+
+    font-size: 18px;
+
+    margin-bottom: 5px;
+}
+
+
+.stat-card .value {
+
+    color: #7654ff;
+
+    font-size: 25px;
+
+    font-weight: bold;
+}
+
+
+/* ================= DASHBOARD GRID ================= */
+
+.dashboard-grid {
+
+    max-width: 1100px;
+
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns:
+        2fr 1fr;
+
+    gap: 25px;
+}
+
+
+/* ================= CARDS ================= */
+
+.card {
+
+    background: white;
+
+    border-radius: 20px;
+
+    padding: 30px;
+
+    border: 1px solid #e1e9f7;
+
+    box-shadow:
+        0 12px 35px rgba(20, 45, 90, 0.10);
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+
+.card::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+
+    height: 4px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #7654ff,
+            #00cfff
+        );
+}
+
+
+.card h2 {
+
+    color: #203f73;
+
+    font-size: 23px;
+
+    margin-bottom: 18px;
+}
+
+
+/* ================= LATEST RESULT ================= */
+
+.result-box {
+
+    padding: 25px;
+
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eef0ff,
+            #e5f8ff
+        );
+
+    border: 1px solid
+        rgba(118, 84, 255, 0.15);
+
+    text-align: center;
+}
+
+
+.result-box .result {
+
+    font-size: 27px;
+
+    font-weight: bold;
+
+    color: #7654ff;
+
+    margin-bottom: 8px;
+}
+
+
+.result-box p {
+
+    color: #657792;
+
+    margin: 5px;
+}
+
+
+.result-box strong {
+
+    color: #304f82;
+}
+
+
+/* ================= HIGH / LOW ================= */
+
+.high-risk {
+
+    color: #d32f2f !important;
+}
+
+
+.low-risk {
+
+    color: #188038 !important;
+}
+
+
+/* ================= BUTTONS ================= */
+
+.button {
+
+    display: inline-block;
+
+    margin-top: 20px;
+
+    padding: 13px 22px;
+
+    border-radius: 11px;
+
+    text-decoration: none;
+
+    color: white;
+
+    font-weight: bold;
+
+    background:
+        linear-gradient(
+            90deg,
+            #7654ff,
+            #536fff,
+            #00cfff
+        );
+
+    transition: 0.3s;
+
+    box-shadow:
+        0 8px 20px
+        rgba(75, 105, 255, 0.22);
+}
+
+
+.button:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 12px 28px
+        rgba(0, 207, 255, 0.28);
+}
+
+
+/* ================= PROFILE ================= */
+
+.profile-item {
+
+    margin-bottom: 18px;
+}
+
+
+.profile-item span {
+
+    display: block;
+
+    color: #7b8ca8;
+
+    font-size: 13px;
+
+    margin-bottom: 3px;
+}
+
+
+.profile-item strong {
+
+    color: #304f82;
+
+    font-size: 16px;
+}
+
+
+/* ================= HISTORY ================= */
+
+.history-card {
+
+    max-width: 1100px;
+
+    margin: 25px auto 0;
+}
+
+
+.history-table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+    margin-top: 10px;
+}
+
+
+.history-table th {
+
+    background: #eef0ff;
+
+    color: #40377d;
+
+    padding: 13px;
+
+    text-align: left;
+
+    font-size: 14px;
+}
+
+
+.history-table td {
+
+    padding: 13px;
+
+    border-bottom:
+        1px solid #edf1f7;
+
+    color: #526987;
+
+    font-size: 14px;
+}
+
+
+.history-table tr:hover {
+
+    background: #f8faff;
+}
+
+
+/* ================= ADMIN TABLE ================= */
+
+.admin-table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+    margin-top: 10px;
+
+    min-width: 1100px;
+}
+
+
+.admin-table th {
+
+    background: #eef0ff;
+
+    color: #40377d;
+
+    padding: 13px 10px;
+
+    text-align: left;
+
+    font-size: 13px;
+
+    white-space: nowrap;
+}
+
+
+.admin-table td {
+
+    padding: 12px 10px;
+
+    border-bottom:
+        1px solid #edf1f7;
+
+    color: #526987;
+
+    font-size: 13px;
+
+    white-space: nowrap;
+}
+
+
+.admin-table tr:hover {
+
+    background: #f8faff;
+}
+
+
+.admin-table .user-name {
+
+    font-weight: bold;
+
+    color: #304f82;
+}
+
+
+/* ================= ADMIN BADGE ================= */
+
+.admin-badge {
+
+    display: inline-block;
+
+    padding: 7px 15px;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #7654ff,
+            #00cfff
+        );
+
+    color: white;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    margin-bottom: 10px;
+}
+
+
+/* ================= ADMIN SUMMARY ================= */
+
+.admin-summary {
+
+    max-width: 1100px;
+
+    margin: 0 auto 25px;
+
+    padding: 25px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eef0ff,
+            #e5f8ff
+        );
+
+    border-radius: 20px;
+
+    border: 1px solid
+        rgba(118, 84, 255, 0.15);
+
+    text-align: center;
+}
+
+
+.admin-summary h2 {
+
+    color: #40377d;
+
+    margin-bottom: 8px;
+}
+
+
+.admin-summary p {
+
+    color: #657792;
+}
+
+
+/* ================= RECOMMENDATION CARD ================= */
+
+.recommendation-card {
+
+    max-width: 1100px;
+
+    margin: 25px auto 0;
+
+    padding: 30px;
+
+    border-radius: 20px;
+
+    background:
+
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(118, 84, 255, 0.10),
+            transparent 35%
+        ),
+
+        linear-gradient(
+            135deg,
+            #eef0ff,
+            #e5f8ff
+        );
+
+    border:
+        1px solid rgba(118, 84, 255, 0.16);
+
+    text-align: center;
+}
+
+
+.recommendation-card h2 {
+
+    color: #40377d;
+
+    margin-bottom: 8px;
+}
+
+
+.recommendation-card p {
+
+    color: #657792;
+
+    margin-bottom: 10px;
+}
+
+
+/* ================= HOME BUTTON ================= */
+
+.home-button {
+
+    max-width: 1100px;
+
+    margin: 30px auto 0;
+
+    text-align: center;
+}
+
+
+.home-button a {
+
+    display: inline-block;
+
+    padding: 13px 28px;
+
+    border-radius: 12px;
+
+    background: #203f73;
+
+    color: white;
+
+    text-decoration: none;
+
+    font-weight: bold;
+
+    transition: 0.3s;
+}
+
+
+.home-button a:hover {
+
+    transform: translateY(-3px);
+
+    background: #7654ff;
+}
+
+
+/* ================= FOOTER ================= */
+
+footer {
+
+    background: #010817;
+
+    color: white;
+
+    text-align: center;
+
+    padding: 30px;
+
+    border-top:
+        1px solid rgba(100, 190, 255, 0.10);
+}
+
+
+footer p {
+
+    margin: 5px;
+
+    font-size: 14px;
+
+    color: #91a4c0;
+}
+
+
+footer strong {
+
+    color: white;
+
+    text-shadow:
+        0 0 12px rgba(118, 84, 255, 0.30);
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 850px) {
+
+    .stats {
+
+        grid-template-columns:
+            1fr;
+    }
+
+    .dashboard-grid {
+
+        grid-template-columns:
+            1fr;
+    }
+
+    .container {
+
+        padding: 55px 5%;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .header {
+
+        min-height: 280px;
+    }
+
+    .header h1 {
+
+        font-size: 36px;
+    }
+
+    .header p {
+
+        font-size: 14px;
+    }
+
+    .container {
+
+        padding: 45px 4%;
+    }
+
+    .card {
+
+        padding: 23px 18px;
+    }
+
+    .history-table {
+
+        font-size: 12px;
+    }
+
+    .history-table th,
+    .history-table td {
+
+        padding: 9px 6px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= HEADER ================= -->
+
+<section class="header">
+
+    {% if is_admin %}
+
+        <h1>👑 OvaAssist Admin Dashboard</h1>
+
+        <p>
+            Complete PMOS user monitoring and prediction overview
+        </p>
+
+    {% else %}
+
+        <h1>📊 OvaAssist Dashboard</h1>
+
+        <p>
+            Your personal PMOS health overview
+        </p>
+
+    {% endif %}
+
+</section>
+
+
+<!-- ================= MAIN ================= -->
+
+<div class="container">
+
+
+{% if is_admin %}
+
+<!-- ===================================================== -->
+<!--                    ADMIN DASHBOARD                    -->
+<!-- ===================================================== -->
+
+<div class="welcome">
+
+    <div class="admin-badge">
+        👑 ADMIN ACCESS
+    </div>
+
+    <h2>
+        Welcome back, {{ username }}! 👋
+    </h2>
+
+    <p>
+        Monitor all registered users and their PMOS prediction information.
+    </p>
+
+</div>
+
+
+<!-- ================= ADMIN STATISTICS ================= -->
+
+<div class="stats">
+
+    <!-- ================= TOTAL USERS ================= -->
+
+    <div class="stat-card">
+
+        <div class="stat-icon">
+            👥
+        </div>
+
+        <h3>
+            Total Users
+        </h3>
+
+        <div class="value">
+            {{ total_users }}
+        </div>
+
+    </div>
+
+
+    <!-- ================= TOTAL PREDICTIONS ================= -->
+
+    <div class="stat-card">
+
+        <div class="stat-icon">
+            🧪
+        </div>
+
+        <h3>
+            Total Predictions
+        </h3>
+
+        <div class="value">
+            {{ total_predictions }}
+        </div>
+
+    </div>
+
+
+    <!-- ================= POSITIVE CASES ================= -->
+
+    <div class="stat-card">
+
+        <div class="stat-icon">
+            ⚠️
+        </div>
+
+        <h3>
+            Positive Cases
+        </h3>
+
+        <div class="value">
+            {{ positive_predictions }}
+        </div>
+
+    </div>
+
+
+    <!-- ================= NEGATIVE CASES ================= -->
+
+    <div class="stat-card">
+
+        <div class="stat-icon">
+            ✅
+        </div>
+
+        <h3>
+            Negative Cases
+        </h3>
+
+        <div class="value">
+            {{ negative_predictions }}
+        </div>
+
+    </div>
+
+</div>
+<!-- ================= ADMIN SUMMARY ================= -->
+
+<div class="admin-summary">
+
+    <h2>
+        📊 PMOS Prediction Overview
+    </h2>
+
+    <p>
+        Total Predictions:
+        <strong>{{ total_predictions }}</strong>
+        &nbsp; | &nbsp;
+
+        Positive:
+        <strong class="high-risk">
+            {{ positive_predictions }}
+        </strong>
+
+        &nbsp; | &nbsp;
+
+        Negative:
+        <strong class="low-risk">
+            {{ negative_predictions }}
+        </strong>
+    </p>
+
+</div>
+
+
+<!-- ================= ALL USERS ================= -->
+
+<div class="card history-card">
+
+    <h2>
+        👥 All Registered User Predictions
+    </h2>
+
+    {% if predictions %}
+
+    <div style="overflow-x:auto;">
+
+        <table class="admin-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        #
+                    </th>
+
+                    <th>
+                        Username
+                    </th>
+
+                    <th>
+                        Email
+                    </th>
+
+                    <th>
+                        Age
+                    </th>
+
+                    <th>
+                        Weight
+                    </th>
+
+                    <th>
+                        Height
+                    </th>
+
+                    <th>
+                        BMI
+                    </th>
+
+                    <th>
+                        Cycle
+                    </th>
+
+                    <th>
+                        Cycle Length
+                    </th>
+
+                    <th>
+                        Weight Gain
+                    </th>
+
+                    <th>
+                        Hair Growth
+                    </th>
+
+                    <th>
+                        Pimples
+                    </th>
+
+                    <th>
+                        Result
+                    </th>
+
+                    <th>
+                        Probability
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+            {% for prediction in predictions %}
+
+                <tr>
+
+                    <td>
+                        {{ forloop.counter }}
+                    </td>
+
+
+                    <td class="user-name">
+                        {{ prediction.user.username }}
+                    </td>
+
+
+                    <td>
+                        {{ prediction.user.email }}
+                    </td>
+
+
+                    <td>
+                        {{ prediction.age }}
+                    </td>
+
+
+                    <td>
+                        {{ prediction.weight }}
+                    </td>
+
+
+                    <td>
+                        {{ prediction.height }}
+                    </td>
+
+
+                    <td>
+                        {{ prediction.bmi }}
+                    </td>
+
+
+                    <td>
+
+                        {% if prediction.cycle == 1 %}
+
+                            Irregular
+
+                        {% else %}
+
+                            Regular
+
+                        {% endif %}
+
+                    </td>
+
+
+                    <td>
+                        {{ prediction.cycle_length }}
+                    </td>
+
+
+                    <td>
+
+                        {% if prediction.weight_gain == 1 %}
+
+                            Yes
+
+                        {% else %}
+
+                            No
+
+                        {% endif %}
+
+                    </td>
+
+
+                    <td>
+
+                        {% if prediction.hair_growth == 1 %}
+
+                            Yes
+
+                        {% else %}
+
+                            No
+
+                        {% endif %}
+
+                    </td>
+
+
+                    <td>
+
+                        {% if prediction.pimples == 1 %}
+
+                            Yes
+
+                        {% else %}
+
+                            No
+
+                        {% endif %}
+
+                    </td>
+
+
+                    <td>
+
+                        {% if prediction.prediction == 1 %}
+
+                            <strong class="high-risk">
+                                ⚠️ High Risk
+                            </strong>
+
+                        {% else %}
+
+                            <strong class="low-risk">
+                                ✅ Low Risk
+                            </strong>
+
+                        {% endif %}
+
+                    </td>
+
+
+                    <td>
+                        {{ prediction.probability }}%
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    {% else %}
+
+        <p style="text-align:center;color:#657792;">
+            No prediction data available.
+        </p>
+
+    {% endif %}
+
+</div>
+
+
+<!-- ================= ADMIN PROFILE ================= -->
+
+<div class="dashboard-grid">
+
+    <div class="card">
+
+        <h2>
+            👑 Admin Profile
+        </h2>
+
+        <div class="profile-item">
+
+            <span>
+                Username
+            </span>
+
+            <strong>
+                {{ username }}
+            </strong>
+
+        </div>
+
+
+        <div class="profile-item">
+
+            <span>
+                Email
+            </span>
+
+            <strong>
+                {{ email }}
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>
+            📈 Statistics
+        </h2>
+
+        <div class="profile-item">
+
+            <span>
+                Registered Users
+            </span>
+
+            <strong>
+                {{ total_users }}
+            </strong>
+
+        </div>
+
+
+        <div class="profile-item">
+
+            <span>
+                Positive Cases
+            </span>
+
+            <strong class="high-risk">
+                {{ positive_predictions }}
+            </strong>
+
+        </div>
+
+
+        <div class="profile-item">
+
+            <span>
+                Negative Cases
+            </span>
+
+            <strong class="low-risk">
+                {{ negative_predictions }}
+            </strong>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+{% else %}
+
+<!-- ===================================================== -->
+<!--                   NORMAL USER                         -->
+<!-- ===================================================== -->
+
+<!-- ================= WELCOME ================= -->
+
+<div class="welcome">
+
+    <h2>
+        Welcome back, {{ username }}! 👋
+    </h2>
+
+    <p>
+        Monitor your PMOS predictions and
+        access personalized health guidance.
+    </p>
+
+</div>
+
+
+<!-- ================= STATISTICS ================= -->
+
+<div class="stats">
+
+
+    <!-- Total Predictions -->
+
+    <div class="stat-card">
+
+        <div class="stat-icon">
+            🧪
+        </div>
+
+        <h3>
+            Total Predictions
+        </h3>
+
+        <div class="value">
+            {{ predictions|length }}
+        </div>
+
+    </div>
+
+
+    <!-- Latest BMI -->
+
+    <div class="stat-card">
+
+        <div class="stat-icon">
+            ⚖️
+        </div>
+
+        <h3>
+            Latest BMI
+        </h3>
+
+        <div class="value">
+
+            {% if latest_prediction %}
+
+                {{ latest_prediction.bmi }}
+
+            {% else %}
+
+                --
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+    <!-- Latest Probability -->
+
+    <div class="stat-card">
+
+        <div class="stat-icon">
+            📈
+        </div>
+
+        <h3>
+            Latest Risk Probability
+        </h3>
+
+        <div class="value">
+
+            {% if latest_prediction %}
+
+                {{ latest_prediction.probability }}%
+
+            {% else %}
+
+                --
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= DASHBOARD GRID ================= -->
+
+<div class="dashboard-grid">
+
+
+    <!-- ================= LATEST RESULT ================= -->
+
+    <div class="card">
+
+        <h2>
+            📊 Latest PMOS Prediction
+        </h2>
+
+
+        {% if latest_prediction %}
+
+        <div class="result-box">
+
+
+            <div class="result
+                {% if latest_prediction.prediction == 1 %}
+                    high-risk
+                {% else %}
+                    low-risk
+                {% endif %}
+            ">
+
+                {% if latest_prediction.prediction == 1 %}
+
+                    ⚠️ High Risk
+
+                {% else %}
+
+                    ✅ Low Risk
+
+                {% endif %}
+
+            </div>
+
+
+            <p>
+                Risk Probability:
+
+                <strong>
+                    {{ latest_prediction.probability }}%
+                </strong>
+            </p>
+
+
+            <p>
+                BMI:
+
+                <strong>
+                    {{ latest_prediction.bmi }}
+                </strong>
+            </p>
+
+
+            <p>
+                Age:
+
+                <strong>
+                    {{ latest_prediction.age }}
+                </strong>
+            </p>
+
+
+            <a href="/result/" class="button">
+                View Full Result
+            </a>
+
+        </div>
+
+
+        {% else %}
+
+
+        <div class="result-box">
+
+            <div class="result">
+                No Prediction Yet
+            </div>
+
+            <p>
+                You have not completed a PMOS prediction.
+            </p>
+
+            <a href="/prediction/" class="button">
+                Make Your First Prediction
+            </a>
+
+        </div>
+
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- ================= PROFILE ================= -->
+
+    <div class="card">
+
+        <h2>
+            👤 My Profile
+        </h2>
+
+
+        <div class="profile-item">
+
+            <span>
+                Username
+            </span>
+
+            <strong>
+                {{ username }}
+            </strong>
+
+        </div>
+
+
+        <div class="profile-item">
+
+            <span>
+                Email
+            </span>
+
+            <strong>
+                {{ email }}
+            </strong>
+
+        </div>
+
+
+        <a href="/prediction/" class="button">
+            🧪 New Prediction
+        </a>
+
+    </div>
+
+
+</div>
+
+
+<!-- ================= HISTORY ================= -->
+
+<div class="card history-card">
+
+    <h2>
+        📋 Prediction History
+    </h2>
+
+
+    {% if predictions %}
+
+
+    <div style="overflow-x:auto;">
+
+        <table class="history-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        #
+                    </th>
+
+                    <th>
+                        Age
+                    </th>
+
+                    <th>
+                        BMI
+                    </th>
+
+                    <th>
+                        Cycle
+                    </th>
+
+                    <th>
+                        Result
+                    </th>
+
+                    <th>
+                        Probability
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for prediction in predictions %}
+
+                <tr>
+
+                    <td>
+                        {{ forloop.counter }}
+                    </td>
+
+                    <td>
+                        {{ prediction.age }}
+                    </td>
+
+                    <td>
+                        {{ prediction.bmi }}
+                    </td>
+
+                    <td>
+
+                        {% if prediction.cycle == 1 %}
+
+                            Irregular
+
+                        {% else %}
+
+                            Regular
+
+                        {% endif %}
+
+                    </td>
+
+
+                    <td>
+
+                        {% if prediction.prediction == 1 %}
+
+                            <strong class="high-risk">
+                                ⚠️ High Risk
+                            </strong>
+
+                        {% else %}
+
+                            <strong class="low-risk">
+                                ✅ Low Risk
+                            </strong>
+
+                        {% endif %}
+
+                    </td>
+
+
+                    <td>
+                        {{ prediction.probability }}%
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    {% else %}
+
+    <p style="text-align:center;color:#657792;">
+        No prediction history available.
+    </p>
+
+    {% endif %}
+
+</div>
+
+
+<!-- ================= RECOMMENDATIONS ================= -->
+
+<div class="recommendation-card">
+
+    <h2>
+        🌿 Personalized Recommendations
+    </h2>
+
+    <p>
+        Get lifestyle, diet, exercise, sleep and
+        health-monitoring guidance based on your
+        PMOS prediction.
+    </p>
+
+    <a href="/recommendation/" class="button">
+        View Recommendations
+    </a>
+
+</div>
+
+
+{% endif %}
+
+
+<!-- ================= HOME ================= -->
+
+<div class="home-button">
+
+    <a href="/">
+        ← Back to Home
+    </a>
+
+</div>
+
+
+</div>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <p>
+
+        🌸 <strong>OvaAssist</strong>
+        - PMOS Health & Wellness
+
+    </p>
+
+    <p>
+
+        © 2026 OvaAssist.
+        For educational and awareness purposes.
+
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>

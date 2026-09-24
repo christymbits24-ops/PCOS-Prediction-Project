@@ -1,184 +1,316 @@
-
+```html
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Login - PMOS</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | OvaAssist</title>
 
     <style>
+
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background: #fff8fc;
-            color: #444;
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at top left, #35126b, transparent 35%),
+                radial-gradient(circle at bottom right, #063c52, transparent 35%),
+                #050816;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 20px;
         }
 
-        .page-header {
-            background: linear-gradient(135deg, #fcecf7, #f4efff);
+        .login-container {
+            width: 100%;
+            max-width: 430px;
+
+            background: rgba(255, 255, 255, 0.08);
+
+            border: 1px solid rgba(255, 255, 255, 0.15);
+
+            backdrop-filter: blur(15px);
+
+            border-radius: 22px;
+
+            padding: 40px 35px;
+
+            box-shadow:
+                0 0 30px rgba(137, 78, 255, 0.25);
+        }
+
+        .logo {
             text-align: center;
-            padding: 55px 20px;
-        }
-
-        .page-header h1 {
-            font-size: 42px;
-            color: #713b70;
-            margin-bottom: 10px;
-        }
-
-        .page-header p {
-            font-size: 17px;
-            color: #666;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 500px;
-            margin: 50px auto;
-            background: white;
-            padding: 35px;
-            border-radius: 20px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.07);
-        }
-
-        h1 {
-            text-align: center;
-            color: #713b70;
+            color: white;
             font-size: 30px;
+            font-weight: bold;
+
+            margin-bottom: 8px;
+        }
+
+        .logo span {
+            color: #a855f7;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #cbd5e1;
+            font-size: 14px;
+
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            text-align: center;
+            color: white;
+
             margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
         }
 
         label {
             display: block;
-            margin-top: 18px;
+
+            color: #e2e8f0;
+
+            font-size: 14px;
+
             margin-bottom: 7px;
-            font-weight: bold;
-            color: #555;
         }
 
         input {
             width: 100%;
-            padding: 13px;
-            border: 1px solid #ddd;
+
+            padding: 13px 15px;
+
             border-radius: 10px;
-            font-size: 15px;
+
+            border: 1px solid rgba(255,255,255,0.2);
+
+            background: rgba(255,255,255,0.08);
+
+            color: white;
+
             outline: none;
-            transition: 0.3s;
+
+            font-size: 15px;
         }
 
         input:focus {
-            border-color: #9b4d96;
-            box-shadow: 0 0 5px rgba(155,77,150,0.2);
+            border-color: #a855f7;
+
+            box-shadow:
+                0 0 10px rgba(168, 85, 247, 0.3);
+        }
+
+        input::placeholder {
+            color: #94a3b8;
+        }
+
+        .error {
+            background: rgba(239, 68, 68, 0.15);
+
+            border: 1px solid rgba(239, 68, 68, 0.4);
+
+            color: #fca5a5;
+
+            padding: 10px;
+
+            border-radius: 8px;
+
+            margin-bottom: 18px;
+
+            text-align: center;
+
+            font-size: 14px;
         }
 
         button {
             width: 100%;
-            margin-top: 28px;
+
             padding: 14px;
-            background: #9b4d96;
-            color: white;
+
             border: none;
-            border-radius: 25px;
+
+            border-radius: 10px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #7c3aed,
+                    #06b6d4
+                );
+
+            color: white;
+
             font-size: 16px;
+
             font-weight: bold;
+
             cursor: pointer;
+
+            margin-top: 8px;
+
             transition: 0.3s;
         }
 
         button:hover {
-            background: #713b70;
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 0 20px rgba(124, 58, 237, 0.5);
         }
 
         .register-link {
             text-align: center;
-            margin-top: 22px;
-            color: #666;
-            font-size: 15px;
+
+            margin-top: 25px;
+
+            color: #cbd5e1;
+
+            font-size: 14px;
         }
 
         .register-link a {
-            color: #9b4d96;
+            color: #c084fc;
+
             text-decoration: none;
+
             font-weight: bold;
         }
 
         .register-link a:hover {
-            color: #713b70;
+            text-decoration: underline;
         }
 
-        footer {
-            background: #3e293e;
-            color: white;
+        .back-home {
             text-align: center;
-            padding: 25px;
-            margin-top: 70px;
+
+            margin-top: 18px;
         }
 
-        footer p {
-            margin: 5px;
-            font-size: 14px;
+        .back-home a {
+            color: #94a3b8;
+
+            text-decoration: none;
+
+            font-size: 13px;
         }
 
-        @media (max-width: 600px) {
-            .page-header h1 {
-                font-size: 34px;
+        .back-home a:hover {
+            color: white;
+        }
+
+        @media (max-width: 500px) {
+
+            .login-container {
+                padding: 30px 22px;
             }
 
-            .container {
-                width: 90%;
-                padding: 25px;
+            .logo {
+                font-size: 26px;
             }
         }
+
     </style>
+
 </head>
 
 <body>
 
-<div class="page-header">
-    
-</div>
+    <div class="login-container">
 
-<div class="container">
+        <div class="logo">
+            Ova<span>Assist</span>
+        </div>
 
-    <h1>Login</h1>
+        <div class="subtitle">
+            Your Health. Your Awareness. Your Support.
+        </div>
 
-    {% if error %}
-    <p style="color: red; text-align: center; margin-bottom: 15px;">
-        {{ error }}
-    </p>
-    {% endif %}
+        <h2>Welcome Back</h2>
 
-    <form method="POST">
+        {% if error %}
+            <div class="error">
+                {{ error }}
+            </div>
+        {% endif %}
 
-        {% csrf_token %}
+        <form method="POST">
 
-        <label>Username</label>
-        <input type="text" name="username" required>
+            {% csrf_token %}
 
-        <label>Password</label>
-        <input type="password" name="password" required>
+            <div class="form-group">
 
-        <button type="submit">
-            Login
-        </button>
+                <label for="username">
+                    Username
+                </label>
 
-    </form>
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    placeholder="Enter your username"
+                    required
+                >
 
-    <div class="register-link">
-        Don't have an account?
-        <a href="/register/">Register</a>
+            </div>
+
+            <div class="form-group">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Enter your password"
+                    required
+                >
+
+            </div>
+
+            <button type="submit">
+                Login
+            </button>
+
+        </form>
+
+        <div class="register-link">
+
+            Don't have an account?
+
+            <a href="/register/">
+                Register
+            </a>
+
+        </div>
+
+        <div class="back-home">
+
+            <a href="/">
+                ← Back to Home
+            </a>
+
+        </div>
+
     </div>
-
-</div>
-
-<footer>
-    <p>© 2026 PMOS. All rights reserved.</p>
-    <p>PMOS Prediction & Recommendation System</p>
-</footer>
 
 </body>
 </html>
-
+```
